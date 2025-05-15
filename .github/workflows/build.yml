@@ -45,7 +45,7 @@ jobs:
         make package/luci-app-mihomo-status/compile V=s
 
     - name: Upload compiled IPK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: luci-app-mihomo-status-ipk
         path: |
