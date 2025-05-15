@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v3
 
       - name: Set up environment
@@ -27,16 +27,19 @@ jobs:
           SDK_DIR=$(find . -maxdepth 1 -type d -name "openwrt-sdk*" | head -n1)
           mv "$SDK_DIR" sdk
 
-      - name: Copy plugin into SDK
+      - name: Copy plugin source into SDK
         run: |
           mkdir -p sdk/package/luci-app-mihomo-status
           cp -r luci-app-mihomo-status/* sdk/package/luci-app-mihomo-status/
 
-      - name: Build the package
+      - name: Build package
         run: |
           cd sdk
           make defconfig
           make package/luci-app-mihomo-status/compile -j$(nproc) V=s
+
+      - name: List .ipk files for debugging
+        run: find sdk/bin/ -type f -name "*.ipk"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
