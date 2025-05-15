@@ -39,12 +39,10 @@ jobs:
           make package/luci-app-mihomo-status/compile -j$(nproc) V=s
 
       - name: Debug: list .ipk files
-        run: find sdk/bin/packages -type f -name "*.ipk"
+        run: find sdk/bin/packages -type f -name "*.ipk" || echo "No .ipk files found"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ipk
-          path:
-            - sdk/bin/packages/x86_64/luci/luci-app-mihomo-status_*.ipk
-            - sdk/bin/packages/x86_64/base/luci-app-mihomo-status_*.ipk
+          path: sdk/bin/packages/x86_64/luci/luci-app-mihomo-status_*.ipk sdk/bin/packages/x86_64/base/luci-app-mihomo-status_*.ipk
