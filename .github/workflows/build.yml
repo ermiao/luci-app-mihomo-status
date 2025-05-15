@@ -45,6 +45,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ipk
-          path:
-            - sdk/bin/packages/x86_64/luci/luci-app-mihomo-status_*.ipk
-            - sdk/bin/packages/x86_64/base/luci-app-mihomo-status_*.ipk
+          path: >
+            sdk/bin/packages/x86_64/luci/luci-app-mihomo-status_*.ipk
+            sdk/bin/packages/x86_64/base/luci-app-mihomo-status_*.ipk
