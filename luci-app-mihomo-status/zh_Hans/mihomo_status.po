@@ -1,3 +1,7 @@
-# dummy translation
-msgid "Mihomo Status"
+msgid ""
+msgstr ""
+"Language: zh_Hans\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+
+msgid "Mihomo 状态"
 msgstr "Mihomo 状态"
