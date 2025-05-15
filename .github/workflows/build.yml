@@ -38,9 +38,6 @@ jobs:
           make defconfig
           make package/luci-app-mihomo-status/compile -j$(nproc) V=s
 
-      - name: Debug: list .ipk files
-        run: find sdk/bin/packages -type f -name "*.ipk" || echo "No .ipk files found"
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
