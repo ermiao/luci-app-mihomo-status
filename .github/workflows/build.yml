@@ -24,7 +24,7 @@ jobs:
         run: |
           wget https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           tar -xf openwrt-sdk-22.03.5-x86-64_*.tar.xz
-          mv openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64 sdk
+          mv openwrt-sdk-22.03.5-x86-64_* sdk
 
       - name: Copy plugin into SDK
         run: |
@@ -34,8 +34,6 @@ jobs:
       - name: Build the package
         run: |
           cd sdk
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
           make defconfig
           make package/luci-app-mihomo-status/compile -j$(nproc) V=s
 
@@ -43,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ipk
-          path: sdk/bin/packages/x86_64/luci/luci-app-mihomo-status*.ipk
+          path: sdk/bin/packages/x86_64/base/luci-app-mihomo-status*.ipk
