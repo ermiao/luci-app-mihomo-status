@@ -25,8 +25,8 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/mihomo_status
 	$(INSTALL_DATA) ./luasrc/view/mihomo_status/index.htm $(1)/usr/lib/lua/luci/view/mihomo_status/
 
-	$(INSTALL_DIR) $(1)/usr/share/luci/i18n
-	$(INSTALL_DATA) ./po/zh_Hans/mihomo_status.po $(1)/usr/share/luci/i18n/mihomo_status.zh_Hans.po
+	# $(INSTALL_DIR) $(1)/usr/share/luci/i18n
+	# $(INSTALL_DATA) ./po/zh_Hans/mihomo_status.po $(1)/usr/share/luci/i18n/mihomo_status.zh_Hans.po
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
