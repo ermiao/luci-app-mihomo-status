@@ -3,7 +3,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=luci-app-mihomo-status
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
-PKG_LICENSE:=MIT
+
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
+PKG_FLAGS := nonshared
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -12,6 +14,10 @@ define Package/$(PKG_NAME)
   CATEGORY:=LuCI
   TITLE:=LuCI for Mihomo status display
   DEPENDS:=+luci-base
+endef
+
+define Build/Compile
+	# nothing
 endef
 
 define Package/$(PKG_NAME)/install
