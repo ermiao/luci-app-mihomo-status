@@ -1,0 +1,92 @@
+<%+header%>
+<h2>Mihomo 状态</h2>
+<style>
+  .mihomo-status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+  }
+
+  .mihomo-status-table th, .mihomo-status-table td {
+    padding: 0.6em;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+
+  .status-ok {
+    color: green;
+    font-weight: normal;
+    cursor: default;
+  }
+
+  .status-fail {
+    color: red;
+    font-weight: normal;
+    cursor: default;
+  }
+
+  .status-warn {
+    color: orange;
+    font-weight: normal;
+    cursor: default;
+  }
+
+  .label {
+    min-width: 130px;
+    display: inline-block;
+  }
+</style>
+
+<div id="mihomo-status">
+  <table class="mihomo-status-table">
+    <tr><th>项目</th><th>状态</th></tr>
+    <tr><td>版本</td><td id="version">加载中...</td></tr>
+    <tr><td>运行状态</td><td id="proxy">加载中...</td></tr>
+    <tr><td>DNS 状态</td><td id="dns">加载中...</td></tr>
+    <tr><td>TUN 模式</td><td id="tun">加载中...</td></tr>
+    <tr><td>本机 IP</td><td id="lan_ip">加载中...</td></tr>
+    <tr><td>默认网关</td><td id="gateway">加载中...</td></tr>
+    <tr><td>CPU 型号</td><td id="cpu">加载中...</td></tr>
+    <tr><td>内存占用</td><td id="mem">加载中...</td></tr>
+    <tr><td>本次已运行</td><td id="uptime">加载中...</td></tr>
+    <tr><td>百度连通性</td><td id="cn_reach">加载中...</td></tr>
+    <tr><td>国际连通性</td><td id="intl_reach">加载中...</td></tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+  function statusClass(value) {
+    if (value === "运行中" || value === "正常" || value === "可访问" || value === "启用") return "status-ok";
+    if (value === "未运行" || value === "未启用" || value === "无法访问") return "status-fail";
+    return "status-warn";
+  }
+
+  fetch('<%=luci.dispatcher.build_url("admin", "status", "mihomo_status", "data")%>')
+    .then(res => res.json())
+    .then(data => {
+      const map = {
+        "版本": "version",
+        "运行状态": "proxy",
+        "DNS 状态": "dns",
+        "TUN 模式": "tun",
+        "本机 IP": "lan_ip",
+        "默认网关": "gateway",
+        "CPU 型号": "cpu",
+        "内存占用": "mem",
+        "本次已运行": "uptime",
+        "百度连通性": "cn_reach",
+        "国际连通性": "intl_reach"
+      };
+
+      for (const key in map) {
+        const el = document.getElementById(map[key]);
+        const val = data[key] || "未知";
+        const cls = statusClass(val);
+        el.innerHTML = <span class="${cls}">${val}</span>;
+      }
+    })
+    .catch(err => {
+      document.getElementById("mihomo-status").innerHTML = "<div class='alert-message error'>无法获取 Mihomo 状态数据。</div>";
+    });
+</script>
+<%+footer%>

@@ -1,0 +1,3 @@
+# dummy translation
+msgid "Mihomo Status"
+msgstr "Mihomo 状态"
